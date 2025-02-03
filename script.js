@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", async () => {
+    console.log("heya?")
     const gamesList = document.getElementById("games-list");
 
     const response = await fetch("games.json");
@@ -9,6 +10,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             const universeResponse = await fetch(`https://games.roblox.com/v1/games?universeIds=${gameId}`);
             const universeData = await universeResponse.json();
             const gameData = universeData.data[0];
+            console.log(gameData)
 
             const thumbnailResponse = await fetch(`https://thumbnails.roblox.com/v1/games/icons?universeIds=${gameId}&size=512x512&format=png`);
             const thumbnailData = await thumbnailResponse.json();
@@ -28,6 +30,8 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     for (const game of games) {
         const details = await fetchGameDetails(game.id);
+        console.log("details:")
+        console.log(details)
         if (!details) continue;
 
         const gameCard = document.createElement("div");
