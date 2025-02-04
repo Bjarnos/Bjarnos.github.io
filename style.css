@@ -3,7 +3,7 @@
 
 /* CSS body */
 body {
-    font-family: 'Orbitron', sans-serif;
+    font-family: sans-serif;
     margin: 0;
     padding: 0;
     background: #0d0d0d;
@@ -19,6 +19,7 @@ body {
 
 /* CSS styling */
 .title {
+    font-family: 'Orbitron', sans-serif;
     font-size: 3rem;
     color: #0ff;
     text-shadow: 0 0 20px #0ff;
@@ -26,12 +27,14 @@ body {
 }
 
 .subtitle {
+    font-family: 'Orbitron', sans-serif;
     font-size: 1.2rem;
     color: #888;
     margin-bottom: 30px;
 }
 
 h2 {
+    font-family: 'Orbitron', sans-serif;
     color: #0ff;
     text-shadow: 0 0 10px #0ff;
     border-bottom: 2px solid #0ff;
