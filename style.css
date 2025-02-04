@@ -1,9 +1,10 @@
 /* Import font */
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&display=swap');
 
 /* CSS body */
 body {
-    font-family: sans-serif;
+    font-family: 'Figtree', sans-serif;
     margin: 0;
     padding: 0;
     background: #0d0d0d;
