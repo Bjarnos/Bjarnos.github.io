@@ -1,7 +1,5 @@
 document.addEventListener("DOMContentLoaded", async () => {
-    console.log("Fetching game data...");
     const gamesList = document.getElementById("games-list");
-
     try {
         const response = await fetch("https://cv-server-9l5d.onrender.com/get");
         const data = await response.json();
@@ -21,6 +19,10 @@ document.addEventListener("DOMContentLoaded", async () => {
                 <p>Total Visits: ${game.total_plays}</p>
             `;
             gamesList.appendChild(gameCard);
+
+            gameCard.addEventListener('click', function () {
+                console.log("here")
+            })
         });
 
     } catch (error) {
