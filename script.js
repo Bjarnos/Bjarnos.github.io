@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             return;
         }
 
-        data.games.forEach(game => {
+        data.data.forEach(game => {
             const gameCard = document.createElement("div");
             gameCard.className = "game-card";
             gameCard.innerHTML = `
