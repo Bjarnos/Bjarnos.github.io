@@ -1,47 +1,29 @@
 document.addEventListener("DOMContentLoaded", async () => {
-    console.log("heya?")
+    console.log("Fetching game data...");
     const gamesList = document.getElementById("games-list");
 
-    const response = await fetch("games.json");
-    const games = await response.json();
+    try {
+        const response = await fetch("https://cv-server-9l5d.onrender.com/get");
+        const data = await response.json();
 
-    async function fetchGameDetails(gameId) {
-        try {
-            const universeResponse = await fetch(`https://games.roblox.com/v1/games?universeIds=${gameId}`);
-            const universeData = await universeResponse.json();
-            const gameData = universeData.data[0];
-            console.log(gameData)
-
-            const thumbnailResponse = await fetch(`https://thumbnails.roblox.com/v1/games/icons?universeIds=${gameId}&size=512x512&format=png`);
-            const thumbnailData = await thumbnailResponse.json();
-            const imageUrl = thumbnailData.data[0]?.imageUrl || "default-thumbnail.png";
-
-            return {
-                name: gameData.name,
-                players: gameData.playing,
-                visits: gameData.visits,
-                image: imageUrl
-            };
-        } catch (error) {
-            console.error(`Error fetching game data for ID ${gameId}:`, error);
-            return null;
+        if (data.error) {
+            console.error("Error fetching game data:", data.error);
+            return;
         }
-    }
 
-    for (const game of games) {
-        const details = await fetchGameDetails(game.id);
-        console.log("details:")
-        console.log(details)
-        if (!details) continue;
+        data.games.forEach(game => {
+            const gameCard = document.createElement("div");
+            gameCard.className = "game-card";
+            gameCard.innerHTML = `
+                <img src="${game.thumbnail_url}" alt="${game.name}">
+                <h3>${game.name}</h3>
+                <p>Players: ${game.active_users}</p>
+                <p>Total Visits: ${game.total_plays}</p>
+            `;
+            gamesList.appendChild(gameCard);
+        });
 
-        const gameCard = document.createElement("div");
-        gameCard.className = "game-card";
-        gameCard.innerHTML = `
-            <img src="${details.image}" alt="${details.name}">
-            <h3>${details.name}</h3>
-            <p>Players: ${details.players}</p>
-            <p>Total Visits: ${details.visits}</p>
-        `;
-        gamesList.appendChild(gameCard);
+    } catch (error) {
+        console.error("Error fetching games:", error);
     }
 });
