@@ -43,6 +43,10 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         const sortedGames = data.data.sort((a, b) => b.total_plays - a.total_plays);
         sortedGames.forEach(game => {
+            if (game.total_plays >= 1000) {
+                game.total_plays = String(Math.floor(game.total_plays/1000)) + "K+"
+            }
+
             const gameCard = document.createElement("div");
             gameCard.className = "game-card";
             gameCard.innerHTML = `
