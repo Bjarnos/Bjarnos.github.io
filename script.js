@@ -78,7 +78,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             const gameCard = document.createElement("div");
             gameCard.className = "game-card";
             gameCard.innerHTML = `
-                <img src="${game.thumbnail_url}" alt="${game.name}">
+                <img src="${game.thumbnail_url}" class="thumbnail" alt="${game.name}">
                 <h3>${game.name}</h3>
                 <p class="holder"><img src="Assets/People.png" class="token">${game.active_users}</p>
                 <p class="holder"><img src="Assets/Eye.png" class="token">${game.total_plays}</p>
