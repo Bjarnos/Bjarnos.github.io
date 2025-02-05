@@ -1,0 +1,341 @@
+/* Import font */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&display=swap');
+
+/* CSS body */
+body {
+    font-family: 'Figtree', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #0d0d0d;
+    color: #fff;
+    text-align: center;
+}
+
+.container {
+    width: 80%;
+    margin: auto;
+    padding: 20px;
+}
+
+/* CSS styling */
+.title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 3rem;
+    color: #0ff;
+    text-shadow: 0 0 20px #0ff;
+    animation: glow 1.5s infinite alternate;
+}
+
+.subtitle {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.2rem;
+    color: #888;
+    margin-bottom: 30px;
+}
+
+h2 {
+    font-family: 'Orbitron', sans-serif;
+    color: #0ff;
+    text-shadow: 0 0 10px #0ff;
+    border-bottom: 2px solid #0ff;
+    display: inline-block;
+    padding-bottom: 5px;
+}
+
+img {
+    -webkit-user-drag: none;
+    pointer-events: none;
+
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+
+.story {
+    display: flex;
+    justify-content: center;
+    max-width: 600px;
+    margin: 0 auto; 
+}
+
+.games-grid {
+    display: grid;
+    place-items: center;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+    padding: 20px;
+
+    max-width: 800px;
+    margin: auto;
+    align-items: stretch;
+}
+
+.game-card {
+    background: rgba(0, 255, 255, 0.1);
+    border: 2px solid #0ff;
+    border-radius: 15px;
+    padding: 15px;
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.4);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+
+.game-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 25px rgba(0, 255, 255, 0.7);
+}
+
+.game-card h3, p {
+    margin: 5px 0;
+    line-height: 1.2;
+}
+
+.game-card img {
+    width: 100%;
+    border-radius: 10px;
+}
+
+a {
+    color: #0ff;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+a:hover {
+    color: #ff0;
+    text-shadow: 0 0 10px #ff0;
+}
+
+.ignore {
+    color: #fff;
+    text-decoration: none;
+    font-weight: normal;
+    transition: none;
+}
+
+.ignore:hover {
+    color: #fff;
+    text-shadow: 0 0 0px #fff;
+}
+
+.holder {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+}
+
+.token {
+    width: 1em;  
+    height: 1em;  
+    aspect-ratio: 1 / 1;
+    object-fit: contain;
+    vertical-align: middle;
+}
+
+.round {
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+    margin-right: 15px;
+    border-radius: 5px;
+}
+
+.round-effect {
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+    margin-right: 15px;
+    border-radius: 5px;
+    rotate: 0deg;
+
+    transition: transform 0.3s ease;
+}
+
+.contact-a a:hover .round-effect {
+    transform: rotate(10deg);
+}
+
+.span {
+    display: flex;
+    align-items: center;
+    width: 95%;
+    max-width: 800px;
+    margin: 10px auto;
+    padding: 15px;
+    background: rgba(0, 255, 255, 0.1);
+    border: 2px solid #0ff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.4);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+
+.span:hover {
+    transform: scale(1.03);
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.7);
+}
+
+.span p {
+    margin: 0;
+    font-size: 1.1rem;
+    color: #fff;
+}
+
+.stat {
+    background: linear-gradient(135deg, #00f0ff, #007f9f);
+    border-radius: 15px;
+    padding: 20px;
+    margin: 10px;
+    text-align: center;
+    box-shadow: 0 0 10px rgba(0, 240, 255, 0.5);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    width: 180px;
+    flex: 1;
+}
+
+.stat h3 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.2rem;
+    margin: 10px 0;
+    color: #fff;
+
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+
+.stat p {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #fff;
+    margin: 0;
+}
+
+.stat:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 25px rgba(0, 255, 255, 0.7);
+}
+
+.total {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.contact h3 {
+    font-family: 'Orbitron', sans-serif;
+    color: #0ff;
+    text-shadow: 0 0 10px #0ff;
+    display: inline-block;
+    padding-bottom: 5px;
+}
+
+.contact-a {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+@media (max-width: 770px) {
+    .total {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .stat {
+        width: 90%;
+    }
+}
+
+@keyframes glow {
+    from {
+        text-shadow: 0 0 10px #0ff;
+    }
+    to {
+        text-shadow: 0 0 25px #0ff;
+    }
+}
+
+.game-desc {
+    display: flex;
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: left;
+}
+
+#overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: none;
+    z-index: 1000;
+}
+
+#popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(13, 13, 13, 0.85);
+    border: 2px solid #0ff;
+    border-radius: 15px;
+    padding: 20px;
+    width: 90%;
+    max-width: 500px;
+    text-align: center;
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.4);
+    display: none;
+    z-index: 1001;
+}
+
+#close-popup {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 24px;
+    cursor: pointer;
+    color: #0ff;
+    transition: color 0.3s ease;
+
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+
+#close-popup:hover {
+    color: #ff0;
+}
+
+#popup-link {
+    color: #0ff;
+    font-weight: bold;
+    text-decoration: none;
+
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+
+#popup-link:hover {
+    color: #ff0;
+    text-shadow: 0 0 10px #ff0;
+}
