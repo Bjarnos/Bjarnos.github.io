@@ -99,7 +99,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         });
 
         document.getElementById("stat-players").innerText = String(totalPlayers)
-        document.getElementById("stat-visits").innerText = String(Math.floor(totalVisits/1000)) + "K+"
+        document.getElementById("stat-visits").innerText = String(Math.floor(totalVisits/100000)/10) + "M+"
     } catch (error) {
         console.error("Error fetching games:", error);
         const loader = document.getElementById("loader");
