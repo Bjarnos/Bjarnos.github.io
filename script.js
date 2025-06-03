@@ -10,27 +10,6 @@ if (lastCache && (unixTime - lastCache) < 180 && cache) { // reload after at lea
 }
 
 document.addEventListener("DOMContentLoaded", async () => {
-    const container = document.getElementById("particles-container")
-    function createParticle() {
-        const particle = document.createElement("div")
-        particle.classList.add("particle")
-                
-        const size = Math.random() * 6 + 4
-        particle.style.width = `${size}px`
-        particle.style.height = `${size}px`
-        particle.style.left = `${Math.random() * 100}vw`
-            
-        const duration = Math.random() * 5 + 5
-        particle.style.animationDuration = `${duration}s`
-            
-        container.appendChild(particle)
-            
-        setTimeout(() => {
-            particle.remove()
-        }, duration * 1000)
-    }
-    setInterval(createParticle, 100)
-    
     document.getElementById("stat-active").innerText = String(difference) + "+"
 
     const overlay = document.createElement("div");
