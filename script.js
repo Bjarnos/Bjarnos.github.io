@@ -107,15 +107,13 @@ document.addEventListener("DOMContentLoaded", async () => {
             gamesList.appendChild(gameCard);
 
             gameCard.addEventListener('click', function () {
-                gameCard.addEventListener("click", function () {
-                    document.getElementById("popup-title").textContent = game.name;
-                    document.getElementById("popup-link").href = "https://roblox.com/games/" + game.root_place;
-                    document.getElementById("popup-link").textContent = "Click here to play";
-                    document.getElementById("popup-contributions").innerHTML = game.extra_description;
+                document.getElementById("popup-title").textContent = game.name;
+                document.getElementById("popup-link").href = "https://roblox.com/games/" + game.root_place;
+                document.getElementById("popup-link").textContent = "Click here to play";
+                document.getElementById("popup-contributions").innerHTML = game.extra_description;
     
-                    overlay.style.display = "block";
-                    popup.style.display = "block";
-                });
+                overlay.style.display = "block";
+                popup.style.display = "block";
             });
         });
 
