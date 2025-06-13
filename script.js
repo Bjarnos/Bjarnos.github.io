@@ -1,8 +1,13 @@
 // Settings
-const placeIds = [78606358056604, 127214494370392, 127022380236821, 17554141378, 92774394395352];
+const placeIds = [78606358056604, 17554141378, 127214494370392, 92774394395352, 127022380236821, 91538944718650];
 const descriptions = {
     default: "error",
-    78606358056604: "t"
+    78606358056604: "🐛 Reported multiple exploitable features and bugs",
+    17554141378: "🐛 Done a lot of bug patches<br>⚡ Added a few extra features, like events",
+    127214494370392: "🛡️ Created an anti-exploit system that prevents spawning currency<br>🚫 Banned all old exploiters<br>⚡ Added a lot of new features including SurfaceAppearances and new pets",
+    92774394395352: "🥚 Added 2 new eggs<br>🛡️ Added anti-exploits",
+    127022380236821: "🛡️ Added anti-exploit to prevent fake purchases<br>💬 Migrated to the new chat system",
+    91538944718650: "📜 Written a lot of new client and server code<br>👑 Co-owner & Head scripter",
 };
 
 // Scroll to top on page load/refresh
@@ -163,7 +168,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                 
                 document.getElementById("popup-play-btn").href = `https://www.roblox.com/games/${placeId}`;
                 
-                document.getElementById("popup-contributions").textContent = descriptions[game.id] || descriptions.default;
+                document.getElementById("popup-contributions").innerHTML = descriptions[game.rootPlaceId] || descriptions.default;
                 
                 overlay.style.display = "block";
                 popup.style.display = "block";
