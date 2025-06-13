@@ -1,108 +1,330 @@
-const startTime = 1630317600
-const unixTime = Math.floor(Date.now() / 1000);
-const difference = Math.floor((unixTime-startTime)/31556926);
+// Scroll to top on page load/refresh
+window.addEventListener('load', function() {
+    window.scrollTo(0, 0);
+});
 
-const lastCache = Number(localStorage.getItem("lastCache"))
-const cache = localStorage.getItem("cache")
-let useCache = false
-if (lastCache && (unixTime - lastCache) < 180 && cache) { // reload after at least a minute
-    useCache = true
+// Also handle page reload specifically
+if ('scrollRestoration' in history) {
+    history.scrollRestoration = 'manual';
 }
 
+// Animated tab title
+const fullTitle = "Bjarnos - Game Developer & Security Expert | Roblox Development ";
+let position = 0;
+
+function animateTitle() {
+    const displayLength = 30;
+    let display = fullTitle.substring(position, position + displayLength);
+    if (position + displayLength > fullTitle.length) {
+        display = fullTitle.substring(position) + fullTitle.substring(0, (position + displayLength) % fullTitle.length);
+    }
+    document.title = display;
+    position = (position + 1) % fullTitle.length;
+}
+
+setInterval(animateTitle, 300);
+
+// Calculate years of experience
+const startTime = 1630317600;
+const unixTime = Math.floor(Date.now() / 1000);
+const difference = Math.floor((unixTime - startTime) / 31556926);
+
+// Initialize overlay variable
+let overlay;
+
 document.addEventListener("DOMContentLoaded", async () => {
-    document.getElementById("stat-active").innerText = String(difference) + "+"
-
-    const overlay = document.createElement("div");
-    overlay.id = "overlay";
-    document.body.appendChild(overlay);
-
-    const popup = document.createElement("div");
-    popup.id = "popup";
-    popup.innerHTML = `
-        <div id="popup-content">
-            <span id="close-popup">&times;</span>
-            <h2 id="popup-title"></h2>
-            <p><a id="popup-link" href="#" target="_blank"></a></p>
-            <div class="game-desc"><p id="popup-contributions"></p></div>
-        </div>
-    `;
-    document.body.appendChild(popup);
-
+    document.getElementById("stat-active").innerText = String(difference) + "+";
+    
+    // Popup functionality
+    overlay = document.getElementById("overlay");
+    const popup = document.getElementById("popup");
+    const closeBtn = document.getElementById("close-popup");
+    
     function closePopup() {
         overlay.style.display = "none";
         popup.style.display = "none";
     }
-
-    overlay.addEventListener("click", closePopup);
-    document.getElementById("close-popup").addEventListener("click", closePopup);
-    document.addEventListener("keydown", (event) => {
-        if (event.key === "Escape") closePopup();
+    
+    overlay.addEventListener("click", () => {
+        closePopup();
+        closeEmailPopup();
     });
-
+    closeBtn.addEventListener("click", closePopup);
+    document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") {
+            closePopup();
+            closeEmailPopup();
+        }
+    });
+    
+    // Fetch games data
     const gamesList = document.getElementById("games-list");
-    let totalVisits = 0
-    let totalPlayers = 0
+    const placeIds = [78606358056604, 127214494370392, 127022380236821, 17554141378, 92774394395352];
+    
+    let totalVisits = 0;
+    let totalPlayers = 0;
+    let gamesData = [];
+    
     try {
-        let data = {}
-        if (useCache) {
-            data = JSON.parse(cache)
-        } else {
-            const response = await fetch("https://cv-server-9l5d.onrender.com/get");
-            data = await response.json();
-
-            localStorage.setItem("lastCache", String(Math.floor(Date.now()/1000)))
-            localStorage.setItem("cache", JSON.stringify(data))
+        // Using CORS proxy for API calls
+        const proxy = 'https://corsproxy.io/?';
+        
+        // First, get universe IDs from place IDs
+        const universePromises = placeIds.map(placeId => 
+            fetch(proxy + encodeURIComponent(`https://apis.roblox.com/universes/v1/places/${placeId}/universe`))
+                .then(res => res.json())
+                .then(data => ({ placeId, universeId: data.universeId }))
+                .catch(() => ({ placeId, universeId: null }))
+        );
+        
+        const universeData = await Promise.all(universePromises);
+        const validUniverseIds = universeData.filter(d => d.universeId).map(d => d.universeId);
+        
+        if (validUniverseIds.length === 0) {
+            throw new Error("No valid universe IDs found");
         }
-
-        const loader = document.getElementById("loader");
-        if (loader) {
-            loader.remove();
-        }
-
-        if (data.error) {
-            console.error("Error fetching game data:", data.error);
-            return;
-        }
-
-        const sortedGames = data.data.sort((a, b) => b.total_plays - a.total_plays);
-        sortedGames.forEach(game => {
-            totalVisits += game.total_plays
-            totalPlayers += game.active_users
-
-            if (game.total_plays >= 1000000) {
-                game.total_plays = String(Math.floor(game.total_plays/100000)/10) + "M+"
-            } else if (game.total_plays >= 1000) {
-                game.total_plays = String(Math.floor(game.total_plays/100)/10) + "K+"
+        
+        // Fetch game details
+        const detailsResponse = await fetch(proxy + encodeURIComponent(`https://games.roblox.com/v1/games?universeIds=${validUniverseIds.join(',')}`));
+        const detailsData = await detailsResponse.json();
+        
+        // Fetch thumbnails
+        const thumbnailResponse = await fetch(proxy + encodeURIComponent(`https://thumbnails.roblox.com/v1/games/icons?universeIds=${validUniverseIds.join(',')}&size=512x512&format=Png&isCircular=false`));
+        const thumbnailData = await thumbnailResponse.json();
+        
+        // Map thumbnails to games
+        const thumbnailMap = {};
+        thumbnailData.data.forEach(thumb => {
+            if (thumb.state === 'Completed' && thumb.imageUrl) {
+                thumbnailMap[thumb.targetId] = thumb.imageUrl;
             }
-
+        });
+        
+        // Process games data
+        detailsData.data.forEach(game => {
+            const gameInfo = {
+                id: game.id,
+                name: game.name,
+                playing: game.playing || 0,
+                visits: game.visits || 0,
+                thumbnail: thumbnailMap[game.id] || 'https://via.placeholder.com/512x512/1e293b/60a5fa?text=Loading...',
+                placeId: game.rootPlaceId
+            };
+            gamesData.push(gameInfo);
+            totalVisits += gameInfo.visits;
+            totalPlayers += gameInfo.playing;
+        });
+        
+        // Sort by CCU (playing) in descending order
+        gamesData.sort((a, b) => b.playing - a.playing);
+        
+        // Clear loader and render games
+        gamesList.innerHTML = '';
+        
+        gamesData.forEach(game => {
+            let displayVisits = game.visits;
+            if (game.visits >= 1000000000) {
+                displayVisits = (Math.floor(game.visits / 100000000) / 10) + "B";
+            } else if (game.visits >= 1000000) {
+                displayVisits = (Math.floor(game.visits / 100000) / 10) + "M";
+            } else if (game.visits >= 1000) {
+                displayVisits = (Math.floor(game.visits / 100) / 10) + "K";
+            }
+            
             const gameCard = document.createElement("div");
             gameCard.className = "game-card";
             gameCard.innerHTML = `
-                <img src="${game.thumbnail_url}" class="thumbnail" alt="${game.name}">
-                <h3>${game.name}</h3>
-                <p class="holder"><img src="Assets/People.png" class="token">${game.active_users}</p>
-                <p class="holder"><img src="Assets/Eye.png" class="token">${game.total_plays}</p>
+                <img src="${game.thumbnail}" class="game-thumbnail" alt="${game.name}" loading="lazy">
+                <div class="game-info">
+                    <h3 class="game-name">${game.name}</h3>
+                    <div class="game-stats">
+                        <div class="game-stat">
+                            <span class="online-indicator"></span>
+                            <span>${game.playing.toLocaleString()}</span>
+                        </div>
+                        <div class="game-stat">
+                            <img src="https://img.icons8.com/ios-filled/20/94a3b8/visible.png" class="icon" alt="Visits">
+                            <span>${displayVisits}</span>
+                        </div>
+                    </div>
+                </div>
             `;
             gamesList.appendChild(gameCard);
-
-            gameCard.addEventListener('click', function () {
+            
+            gameCard.addEventListener('click', function() {
+                // Find the original place ID from universeData
+                const originalData = universeData.find(d => d.universeId === game.id);
+                const placeId = originalData ? originalData.placeId : game.placeId;
+                
                 document.getElementById("popup-title").textContent = game.name;
-                document.getElementById("popup-link").href = "https://roblox.com/games/" + game.root_place;
-                document.getElementById("popup-link").textContent = "Click here to play";
-                document.getElementById("popup-contributions").innerHTML = game.extra_description;
-    
+                document.getElementById("popup-players").textContent = game.playing.toLocaleString();
+                
+                let displayVisits = game.visits.toLocaleString();
+                if (game.visits >= 1000000000) {
+                    displayVisits = (Math.floor(game.visits / 100000000) / 10) + "B";
+                } else if (game.visits >= 1000000) {
+                    displayVisits = (Math.floor(game.visits / 100000) / 10) + "M";
+                } else if (game.visits >= 1000) {
+                    displayVisits = (Math.floor(game.visits / 100) / 10) + "K";
+                }
+                document.getElementById("popup-visits").textContent = displayVisits;
+                
+                document.getElementById("popup-play-btn").href = `https://www.roblox.com/games/${placeId}`;
+                
+                // Add custom descriptions for each game
+                const descriptions = {
+                    // You can add specific descriptions by universe ID if needed
+                    default: "Contributed to game development, optimization, and security systems."
+                };
+                
+                document.getElementById("popup-contributions").textContent = descriptions[game.id] || descriptions.default;
+                
                 overlay.style.display = "block";
                 popup.style.display = "block";
             });
         });
-
-        document.getElementById("stat-players").innerText = String(totalPlayers)
-        document.getElementById("stat-visits").innerText = String(Math.floor(totalVisits/100000)/10) + "M+"
-    } catch (error) {
-        console.error("Error fetching games:", error);
-        const loader = document.getElementById("loader");
-        if (loader) {
-            loader.innerText = "Load failed.";
+        
+        // Update stats
+        document.getElementById("stat-players").innerText = totalPlayers.toLocaleString();
+        if (totalVisits >= 1000000000) {
+            document.getElementById("stat-visits").innerText = (Math.floor(totalVisits / 100000000) / 10) + "B+";
+        } else {
+            document.getElementById("stat-visits").innerText = (Math.floor(totalVisits / 100000) / 10) + "M+";
         }
+        
+    } catch (error) {
+        console.error("Error loading games:", error);
+        gamesList.innerHTML = '<p style="color: var(--text-secondary); text-align: center;">Unable to load portfolio. Please try again later.</p>';
+        
+        // Use placeholder data
+        document.getElementById("stat-players").innerText = "5,000+";
+        document.getElementById("stat-visits").innerText = "10M+";
     }
 });
+
+// Smooth scrolling
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+        // Only prevent default for hash links
+        if (this.getAttribute('href').startsWith('#')) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+    });
+});
+
+// Cursor grid effect (only on desktop)
+if (window.innerWidth > 768) {
+    const cursorGlow = document.querySelector('.cursor-glow');
+    const gridCanvas = document.querySelector('.grid-highlight');
+    const ctx = gridCanvas.getContext('2d');
+    
+    // Set canvas size
+    function resizeCanvas() {
+        gridCanvas.width = window.innerWidth;
+        gridCanvas.height = window.innerHeight;
+    }
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+    
+    // Mouse tracking
+    let mouseX = 0;
+    let mouseY = 0;
+    let targetX = 0;
+    let targetY = 0;
+    
+    document.addEventListener('mousemove', (e) => {
+        targetX = e.clientX;
+        targetY = e.clientY;
+        document.body.classList.add('cursor-active');
+    });
+    
+    document.addEventListener('mouseleave', () => {
+        document.body.classList.remove('cursor-active');
+    });
+    
+    // Smooth animation
+    function animateCursor() {
+        // Smooth cursor follow
+        mouseX += (targetX - mouseX) * 0.1;
+        mouseY += (targetY - mouseY) * 0.1;
+        
+        // Clear canvas
+        ctx.clearRect(0, 0, gridCanvas.width, gridCanvas.height);
+        
+        // Draw grid with highlight
+        const gridSize = 50;
+        const radius = 150;
+        
+        // Draw grid lines with highlight effect
+        for (let x = 0; x < gridCanvas.width; x += gridSize) {
+            for (let y = 0; y < gridCanvas.height; y += gridSize) {
+                const distX = x - mouseX;
+                const distY = y - mouseY;
+                const dist = Math.sqrt(distX * distX + distY * distY);
+                
+                if (dist < radius) {
+                    const opacity = Math.pow(1 - (dist / radius), 1.5);
+                    ctx.strokeStyle = `rgba(59, 130, 246, ${opacity * 0.4})`;
+                    ctx.lineWidth = 1 + opacity * 1.5;
+                    
+                    // Remove shadow for cleaner look
+                    
+                    // Vertical line
+                    ctx.beginPath();
+                    ctx.moveTo(x, Math.max(0, y - gridSize));
+                    ctx.lineTo(x, Math.min(gridCanvas.height, y + gridSize));
+                    ctx.stroke();
+                    
+                    // Horizontal line
+                    ctx.beginPath();
+                    ctx.moveTo(Math.max(0, x - gridSize), y);
+                    ctx.lineTo(Math.min(gridCanvas.width, x + gridSize), y);
+                    ctx.stroke();
+                }
+            }
+        }
+        
+        requestAnimationFrame(animateCursor);
+    }
+    
+    animateCursor();
+}
+
+// Prevent zoom on iOS
+document.addEventListener('gesturestart', function(e) {
+    e.preventDefault();
+});
+
+document.addEventListener('touchmove', function(e) {
+    if (e.scale !== 1) {
+        e.preventDefault();
+    }
+}, { passive: false });
+
+// Email popup functions
+function showEmailPopup() {
+    document.getElementById('overlay').style.display = 'block';
+    document.getElementById('email-popup').style.display = 'block';
+}
+
+function closeEmailPopup() {
+    document.getElementById('overlay').style.display = 'none';
+    document.getElementById('email-popup').style.display = 'none';
+}
+
+function copyEmail() {
+    navigator.clipboard.writeText('contact@bjarnos.dev').then(() => {
+        const button = event.target;
+        const originalText = button.textContent;
+        button.textContent = 'Copied!';
+        button.style.background = '#10b981';
+        setTimeout(() => {
+            button.textContent = originalText;
+            button.style.background = 'var(--primary)';
+        }, 2000);
+    });
+}
