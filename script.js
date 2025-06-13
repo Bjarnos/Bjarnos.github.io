@@ -1,3 +1,10 @@
+// Settings
+const placeIds = [78606358056604, 127214494370392, 127022380236821, 17554141378, 92774394395352];
+const descriptions = {
+    default: "error",
+    78606358056604: "t"
+};
+
 // Scroll to top on page load/refresh
 window.addEventListener('load', function() {
     window.scrollTo(0, 0);
@@ -55,7 +62,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     
     // Fetch games data
     const gamesList = document.getElementById("games-list");
-    const placeIds = [78606358056604, 127214494370392, 127022380236821, 17554141378, 92774394395352];
     
     let totalVisits = 0;
     let totalPlayers = 0;
@@ -156,11 +162,6 @@ document.addEventListener("DOMContentLoaded", async () => {
                 document.getElementById("popup-visits").textContent = displayVisits;
                 
                 document.getElementById("popup-play-btn").href = `https://www.roblox.com/games/${placeId}`;
-                
-                const descriptions = {
-                    default: "error",
-                    78606358056604: "t"
-                };
                 
                 document.getElementById("popup-contributions").textContent = descriptions[game.id] || descriptions.default;
                 
