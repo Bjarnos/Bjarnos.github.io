@@ -45,13 +45,11 @@ document.addEventListener("DOMContentLoaded", async () => {
     
     overlay.addEventListener("click", () => {
         closePopup();
-        closeEmailPopup();
     });
     closeBtn.addEventListener("click", closePopup);
     document.addEventListener("keydown", (event) => {
         if (event.key === "Escape") {
             closePopup();
-            closeEmailPopup();
         }
     });
     
