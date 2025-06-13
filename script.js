@@ -7,7 +7,7 @@ const descriptions = {
     127214494370392: "🛡️ Created an anti-exploit system that prevents spawning currency<br>🚫 Banned all old exploiters<br>⚡ Added a lot of new features including SurfaceAppearances and new pets",
     92774394395352: "🥚 Added 2 new eggs<br>🛡️ Added anti-exploits",
     127022380236821: "🛡️ Added anti-exploit to prevent fake purchases<br>💬 Migrated to the new chat system",
-    91538944718650: "📜 Written a lot of new client and server code<br>👑 Co-owner & Head scripter",
+    91538944718650: "📜 Written a lot of new client and server code<br>👑 Co-owner & Head scripter"
 };
 
 // Scroll to top on page load/refresh
@@ -20,20 +20,17 @@ if ('scrollRestoration' in history) {
 }
 
 // Animated tab title
-const fullTitle = "Bjarnos - Game Developer & Security Expert | Roblox Development ";
-let position = 0;
+const prefix = 'Bjarnos | ';
+const suffixes = ['Roblox Game Developer', 'Security Systems Engineer', 'Full-Stack Developer'];
+let index = 0;
 
-function animateTitle() {
-    const displayLength = 30;
-    let display = fullTitle.substring(position, position + displayLength);
-    if (position + displayLength > fullTitle.length) {
-        display = fullTitle.substring(position) + fullTitle.substring(0, (position + displayLength) % fullTitle.length);
-    }
-    document.title = display;
-    position = (position + 1) % fullTitle.length;
+function updateTitle() {
+    document.title = prefix + suffixes[index];
+    index = (index + 1) % suffixes.length;
 }
 
-setInterval(animateTitle, 300);
+updateTitle();
+setInterval(updateTitle, 3000);
 
 // Calculate years of experience
 const startTime = 1630317600;
@@ -103,6 +100,10 @@ document.addEventListener("DOMContentLoaded", async () => {
         });
         
         detailsData.data.forEach(game => {
+            if (game.id == 6763336660) {
+                game.visits = (game.visits || 0) + 367709;
+            }
+            
             const gameInfo = {
                 id: game.id,
                 name: game.name,
@@ -168,7 +169,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                 
                 document.getElementById("popup-play-btn").href = `https://www.roblox.com/games/${placeId}`;
                 
-                document.getElementById("popup-contributions").innerHTML = descriptions[game.rootPlaceId] || descriptions.default;
+                document.getElementById("popup-contributions").innerHTML = descriptions[game.placeId] || descriptions.default;
                 
                 overlay.style.display = "block";
                 popup.style.display = "block";
