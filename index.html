@@ -4,21 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Bjarnos - Game Developer & Security Expert</title>
-    <link rel="icon" href="https://cdn.xoa.me/uploads/9235fdd5-f234-4700-8a6d-af3425307374.png" type="image/png">
+    <link rel="icon" href="Assets/Pfp.ico" type="image/png"> <!-- https://cdn.xoa.me/uploads/9235fdd5-f234-4700-8a6d-af3425307374.png -->
     
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://bjarnos.dev">
-    <meta property="og:title" content="Bjarnos - Elite Roblox Developer">
+    <meta property="og:title" content="Bjarnos - Roblox Developer">
     <meta property="og:description" content="Professional game developer specializing in anti-cheat systems and full-stack development. 5M+ visits, 4+ years experience.">
-    <meta property="og:image" content="https://cdn.xoa.me/uploads/9235fdd5-f234-4700-8a6d-af3425307374.png">
+    <meta property="og:image" content="/Assets/Pfp.webp">
     
     <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:card" content="summary">
     <meta property="twitter:url" content="https://bjarnos.dev">
     <meta property="twitter:title" content="Bjarnos - Roblox Developer">
     <meta property="twitter:description" content="Professional game developer specializing in anti-cheat systems and full-stack development. 5M+ visits, 4+ years experience.">
-    <meta property="twitter:image" content="https://cdn.xoa.me/uploads/9235fdd5-f234-4700-8a6d-af3425307374.png">
+    <meta property="twitter:image" content="/Assets/Pfp.webp"> <!-- https://cdn.xoa.me/uploads/9235fdd5-f234-4700-8a6d-af3425307374.png -->
     
     <!-- Discord -->
     <meta name="theme-color" content="#3b82f6">
@@ -142,7 +142,7 @@
             Ready to elevate your project? Get in touch.
         </p>
         <div class="contact-methods">
-            <a href="#" class="contact-link" title="Email" onclick="showEmailPopup(); return false;">
+            <a href="#" class="contact-link" title="Email" onclick="window.open('mailto:contact@bjarnos.dev'); return false;">
                 <svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor">
                     <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
                 </svg>
@@ -153,12 +153,15 @@
             <a href="https://www.roblox.com/users/516705355/profile" target="_blank" class="contact-link" title="Roblox">
                 <img src="https://img.icons8.com/ios-filled/48/ffffff/roblox.png" alt="Roblox">
             </a>
+            <a href="/Assets/Studio_w.png" target="_blank" class="contact-link" title="Roblox">
+                <img src="https://img.icons8.com/ios-filled/48/ffffff/roblox.png" alt="Roblox Studio">
+            </a>
             <a href="https://github.com/Bjarnos" target="_blank" class="contact-link" title="GitHub">
                 <img src="https://img.icons8.com/ios-glyphs/48/ffffff/github.png" alt="GitHub">
             </a>
         </div>
         <div style="text-align: center; margin-top: 3rem;">
-            <a href="#" onclick="showEmailPopup(); return false;" class="cta-button">Start Your Project</a>
+            <a href="#" onclick="window.open('mailto:contact@bjarnos.dev'); return false;" class="cta-button">Start Your Project</a>
         </div>
     </section>
     
@@ -187,16 +190,6 @@
             Play on Roblox
             <span class="play-icon"></span>
         </a>
-    </div>
-    
-    <!-- Email Popup -->
-    <div id="email-popup" style="display: none;">
-        <div style="background: var(--dark-light); border: 1px solid var(--border); border-radius: 12px; padding: 2rem; text-align: center; position: relative;">
-            <button onclick="closeEmailPopup()" style="position: absolute; top: 1rem; right: 1rem; background: none; border: none; color: var(--text-secondary); font-size: 24px; cursor: pointer;">&times;</button>
-            <h3 style="margin-bottom: 1rem; color: var(--text-primary);">Contact Email</h3>
-            <p style="font-size: 1.25rem; color: var(--primary-light); font-weight: 600;">contact@bjarnos.dev</p>
-            <button onclick="copyEmail()" style="margin-top: 1.5rem; padding: 0.5rem 1.5rem; background: var(--primary); color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: 500; transition: background 0.3s ease;">Click to Copy</button>
-        </div>
     </div>
     
     <!-- External JavaScript -->
