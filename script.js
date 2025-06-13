@@ -100,7 +100,6 @@ document.addEventListener("DOMContentLoaded", async () => {
         });
         
         detailsData.data.forEach(game => {
-            console.log(game.id)
             if (game.id == 6763336660) {
                 game.visits = (game.visits || 0) + 367709;
             }
