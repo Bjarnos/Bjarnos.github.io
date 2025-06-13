@@ -100,6 +100,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         });
         
         detailsData.data.forEach(game => {
+            console.log(game.id)
             if (game.id == 6763336660) {
                 game.visits = (game.visits || 0) + 367709;
             }
@@ -169,7 +170,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                 
                 document.getElementById("popup-play-btn").href = `https://www.roblox.com/games/${placeId}`;
                 
-                document.getElementById("popup-contributions").innerHTML = descriptions[game.placeId] || descriptions.default;
+                document.getElementById("popup-contributions").innerHTML = descriptions[game.placeId.toString()] || descriptions.default;
                 
                 overlay.style.display = "block";
                 popup.style.display = "block";
