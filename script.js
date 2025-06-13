@@ -3,7 +3,6 @@ window.addEventListener('load', function() {
     window.scrollTo(0, 0);
 });
 
-// Also handle page reload specifically
 if ('scrollRestoration' in history) {
     history.scrollRestoration = 'manual';
 }
@@ -29,7 +28,6 @@ const startTime = 1630317600;
 const unixTime = Math.floor(Date.now() / 1000);
 const difference = Math.floor((unixTime - startTime) / 31556926);
 
-// Initialize overlay variable
 let overlay;
 
 document.addEventListener("DOMContentLoaded", async () => {
@@ -66,10 +64,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     let gamesData = [];
     
     try {
-        // Using CORS proxy for API calls
         const proxy = 'https://corsproxy.io/?';
         
-        // First, get universe IDs from place IDs
         const universePromises = placeIds.map(placeId => 
             fetch(proxy + encodeURIComponent(`https://apis.roblox.com/universes/v1/places/${placeId}/universe`))
                 .then(res => res.json())
@@ -84,15 +80,12 @@ document.addEventListener("DOMContentLoaded", async () => {
             throw new Error("No valid universe IDs found");
         }
         
-        // Fetch game details
         const detailsResponse = await fetch(proxy + encodeURIComponent(`https://games.roblox.com/v1/games?universeIds=${validUniverseIds.join(',')}`));
         const detailsData = await detailsResponse.json();
         
-        // Fetch thumbnails
         const thumbnailResponse = await fetch(proxy + encodeURIComponent(`https://thumbnails.roblox.com/v1/games/icons?universeIds=${validUniverseIds.join(',')}&size=512x512&format=Png&isCircular=false`));
         const thumbnailData = await thumbnailResponse.json();
         
-        // Map thumbnails to games
         const thumbnailMap = {};
         thumbnailData.data.forEach(thumb => {
             if (thumb.state === 'Completed' && thumb.imageUrl) {
@@ -100,7 +93,6 @@ document.addEventListener("DOMContentLoaded", async () => {
             }
         });
         
-        // Process games data
         detailsData.data.forEach(game => {
             const gameInfo = {
                 id: game.id,
@@ -115,10 +107,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             totalPlayers += gameInfo.playing;
         });
         
-        // Sort by CCU (playing) in descending order
         gamesData.sort((a, b) => b.playing - a.playing);
-        
-        // Clear loader and render games
         gamesList.innerHTML = '';
         
         gamesData.forEach(game => {
@@ -152,7 +141,6 @@ document.addEventListener("DOMContentLoaded", async () => {
             gamesList.appendChild(gameCard);
             
             gameCard.addEventListener('click', function() {
-                // Find the original place ID from universeData
                 const originalData = universeData.find(d => d.universeId === game.id);
                 const placeId = originalData ? originalData.placeId : game.placeId;
                 
@@ -172,7 +160,8 @@ document.addEventListener("DOMContentLoaded", async () => {
                 document.getElementById("popup-play-btn").href = `https://www.roblox.com/games/${placeId}`;
                 
                 const descriptions = {
-                    default: ""
+                    default: "error",
+                    78606358056604: "t"
                 };
                 
                 document.getElementById("popup-contributions").textContent = descriptions[game.id] || descriptions.default;
