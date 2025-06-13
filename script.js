@@ -171,10 +171,8 @@ document.addEventListener("DOMContentLoaded", async () => {
                 
                 document.getElementById("popup-play-btn").href = `https://www.roblox.com/games/${placeId}`;
                 
-                // Add custom descriptions for each game
                 const descriptions = {
-                    // You can add specific descriptions by universe ID if needed
-                    default: "Contributed to game development, optimization, and security systems."
+                    default: ""
                 };
                 
                 document.getElementById("popup-contributions").textContent = descriptions[game.id] || descriptions.default;
@@ -184,7 +182,6 @@ document.addEventListener("DOMContentLoaded", async () => {
             });
         });
         
-        // Update stats
         document.getElementById("stat-players").innerText = totalPlayers.toLocaleString();
         if (totalVisits >= 1000000000) {
             document.getElementById("stat-visits").innerText = (Math.floor(totalVisits / 100000000) / 10) + "B+";
@@ -196,9 +193,8 @@ document.addEventListener("DOMContentLoaded", async () => {
         console.error("Error loading games:", error);
         gamesList.innerHTML = '<p style="color: var(--text-secondary); text-align: center;">Unable to load portfolio. Please try again later.</p>';
         
-        // Use placeholder data
-        document.getElementById("stat-players").innerText = "5,000+";
-        document.getElementById("stat-visits").innerText = "10M+";
+        document.getElementById("stat-players").innerText = "error";
+        document.getElementById("stat-visits").innerText = "error";
     }
 });
 
@@ -222,7 +218,6 @@ if (window.innerWidth > 768) {
     const gridCanvas = document.querySelector('.grid-highlight');
     const ctx = gridCanvas.getContext('2d');
     
-    // Set canvas size
     function resizeCanvas() {
         gridCanvas.width = window.innerWidth;
         gridCanvas.height = window.innerHeight;
@@ -230,7 +225,6 @@ if (window.innerWidth > 768) {
     resizeCanvas();
     window.addEventListener('resize', resizeCanvas);
     
-    // Mouse tracking
     let mouseX = 0;
     let mouseY = 0;
     let targetX = 0;
@@ -246,20 +240,15 @@ if (window.innerWidth > 768) {
         document.body.classList.remove('cursor-active');
     });
     
-    // Smooth animation
     function animateCursor() {
-        // Smooth cursor follow
         mouseX += (targetX - mouseX) * 0.1;
         mouseY += (targetY - mouseY) * 0.1;
         
-        // Clear canvas
         ctx.clearRect(0, 0, gridCanvas.width, gridCanvas.height);
         
-        // Draw grid with highlight
         const gridSize = 50;
         const radius = 150;
         
-        // Draw grid lines with highlight effect
         for (let x = 0; x < gridCanvas.width; x += gridSize) {
             for (let y = 0; y < gridCanvas.height; y += gridSize) {
                 const distX = x - mouseX;
@@ -271,15 +260,11 @@ if (window.innerWidth > 768) {
                     ctx.strokeStyle = `rgba(59, 130, 246, ${opacity * 0.4})`;
                     ctx.lineWidth = 1 + opacity * 1.5;
                     
-                    // Remove shadow for cleaner look
-                    
-                    // Vertical line
                     ctx.beginPath();
                     ctx.moveTo(x, Math.max(0, y - gridSize));
                     ctx.lineTo(x, Math.min(gridCanvas.height, y + gridSize));
                     ctx.stroke();
                     
-                    // Horizontal line
                     ctx.beginPath();
                     ctx.moveTo(Math.max(0, x - gridSize), y);
                     ctx.lineTo(Math.min(gridCanvas.width, x + gridSize), y);
@@ -304,27 +289,3 @@ document.addEventListener('touchmove', function(e) {
         e.preventDefault();
     }
 }, { passive: false });
-
-// Email popup functions
-function showEmailPopup() {
-    document.getElementById('overlay').style.display = 'block';
-    document.getElementById('email-popup').style.display = 'block';
-}
-
-function closeEmailPopup() {
-    document.getElementById('overlay').style.display = 'none';
-    document.getElementById('email-popup').style.display = 'none';
-}
-
-function copyEmail() {
-    navigator.clipboard.writeText('contact@bjarnos.dev').then(() => {
-        const button = event.target;
-        const originalText = button.textContent;
-        button.textContent = 'Copied!';
-        button.style.background = '#10b981';
-        setTimeout(() => {
-            button.textContent = originalText;
-            button.style.background = 'var(--primary)';
-        }, 2000);
-    });
-}
