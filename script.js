@@ -279,7 +279,7 @@ document.addEventListener('gesturestart', function(e) {
 });
 
 document.addEventListener('touchmove', function(e) {
-    if (e.scale !== 1) {
+    if (e.touches.length > 1) {
         e.preventDefault();
     }
 }, { passive: false });
