@@ -122,17 +122,14 @@ body.cursor-active .grid-highlight {
 
 /* Animated background particles */
 @keyframes particle-float {
-    0% { transform: translate(0, 100vh) scale(0); }
-    10% { transform: translate(10vw, 90vh) scale(1); }
-    20% { transform: translate(-10vw, 80vh) scale(0.5); }
-    30% { transform: translate(10vw, 70vh) scale(1); }
-    40% { transform: translate(-20vw, 60vh) scale(0.8); }
-    50% { transform: translate(20vw, 50vh) scale(1); }
-    60% { transform: translate(-10vw, 40vh) scale(0.6); }
-    70% { transform: translate(30vw, 30vh) scale(1); }
-    80% { transform: translate(-15vw, 20vh) scale(0.5); }
-    90% { transform: translate(20vw, 10vh) scale(0.8); }
-    100% { transform: translate(0, -10vh) scale(0); }
+    0%   { transform: translateY(100vh) translateX(0) scale(0); opacity: 0; }
+    10%  { transform: translateY(90vh) translateX(2vw) scale(0.5); opacity: 0.4; }
+    25%  { transform: translateY(75vh) translateX(-3vw) scale(0.8); opacity: 0.7; }
+    40%  { transform: translateY(60vh) translateX(4vw) scale(1); opacity: 1; }
+    55%  { transform: translateY(45vh) translateX(-2vw) scale(0.9); }
+    70%  { transform: translateY(30vh) translateX(3vw) scale(0.7); }
+    85%  { transform: translateY(15vh) translateX(-1vw) scale(0.4); opacity: 0.5; }
+    100% { transform: translateY(-10vh) translateX(0) scale(0); opacity: 0; }
 }
 
 .bg-particle {
