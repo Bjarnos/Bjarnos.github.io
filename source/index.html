@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Bjarnos | Roblox Game Developer</title>
+    <link rel="icon" href="Assets/Pfp.ico" type="image/png"> <!-- https://cdn.xoa.me/uploads/9235fdd5-f234-4700-8a6d-af3425307374.png -->
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://bjarnos.dev">
+    <meta property="og:title" content="Bjarnos | Professional Developer">
+    <meta property="og:description" content="Professional game developer specializing in anti-cheat systems and full-stack development. 5M+ visits, 4+ years experience.">
+    <meta property="og:image" content="/Assets/Pfp.webp">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary">
+    <meta property="twitter:url" content="https://bjarnos.dev">
+    <meta property="twitter:title" content="Bjarnos | Professional Developer">
+    <meta property="twitter:description" content="Professional game developer specializing in anti-cheat systems and full-stack development. 5M+ visits, 4+ years experience.">
+    <meta property="twitter:image" content="/Assets/Pfp.webp"> <!-- https://cdn.xoa.me/uploads/9235fdd5-f234-4700-8a6d-af3425307374.png -->
+    
+    <!-- Discord -->
+    <meta name="theme-color" content="#0f1221">
+    
+    <!-- External CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Background particles -->
+    <div class="bg-particle"></div>
+    <div class="bg-particle"></div>
+    <div class="bg-particle"></div>
+    <div class="bg-particle"></div>
+    <div class="bg-particle"></div>
+    <div class="bg-particle"></div>
+    <div class="bg-particle"></div>
+    <div class="bg-particle"></div>
+    <div class="bg-particle"></div>
+    <div class="bg-particle"></div>
+    
+    <!-- Cursor effects -->
+    <div class="cursor-glow"></div>
+    <canvas class="grid-highlight"></canvas>
+    
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Bjarnos</h1>
+            <p class="subtitle">Roblox Game Developer • Security Systems Engineer • Full-Stack Developer</p>
+            
+            <div class="hero-stats">
+                <div class="stat-card">
+                    <div class="stat-number" id="stat-players">...</div>
+                    <div class="stat-label">Active Players</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="stat-visits">...</div>
+                    <div class="stat-label">Total Visits</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="stat-active">...</div>
+                    <div class="stat-label">Years Experience</div>
+                </div>
+            </div>
+            
+            <a href="#portfolio" class="cta-button">View My Work</a>
+        </div>
+    </section>
+    
+    <!-- About Section -->
+    <section class="section" id="about">
+        <h2>About Me</h2>
+        <div class="about-content">
+            <div class="about-text">
+                <p>I specialize in developing <strong>secure, scalable Roblox experiences</strong> with a focus on <strong>anti-exploit systems</strong> and <strong>performance optimization</strong>. With extensive experience in game security, I ensure your players enjoy fair, cheat-free gameplay.</p>
+                <p>Beyond game development, I build complete ecosystems - from backend infrastructure to web interfaces, able to handle huge amounts of API requests and real-time data processing.</p>
+            </div>
+            <div class="skills-grid">
+                <div class="skill-card">
+                    <img src="https://img.icons8.com/ios-filled/24/94a3b8/code.png" style="width: 20px; height: 20px; margin-bottom: 0.5rem;">
+                    <div>Lua(u)</div>
+                </div>
+                <div class="skill-card">
+                    <img src="https://img.icons8.com/ios-filled/24/94a3b8/shield.png" style="width: 20px; height: 20px; margin-bottom: 0.5rem;">
+                    <div>Anti-Cheat</div>
+                </div>
+                <div class="skill-card">
+                    <img src="https://img.icons8.com/ios-filled/24/94a3b8/javascript.png" style="width: 20px; height: 20px; margin-bottom: 0.5rem;">
+                    <div>JavaScript</div>
+                </div>
+                <div class="skill-card">
+                    <img src="https://img.icons8.com/ios-filled/24/94a3b8/python.png" style="width: 20px; height: 20px; margin-bottom: 0.5rem;">
+                    <div>Python</div>
+                </div>
+                <div class="skill-card">
+                    <img src="https://img.icons8.com/ios-filled/24/94a3b8/api.png" style="width: 20px; height: 20px; margin-bottom: 0.5rem;">
+                    <div>Backend APIs</div>
+                </div>
+                <div class="skill-card">
+                    <img src="https://img.icons8.com/ios-filled/24/94a3b8/lock.png" style="width: 20px; height: 20px; margin-bottom: 0.5rem;">
+                    <div>Security</div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Portfolio Section -->
+    <section class="section" id="portfolio">
+        <h2>Games I've Worked On</h2>
+        <div id="games-list" class="games-showcase">
+            <div class="loading-placeholder">
+                <div class="loader"></div>
+                <p>Loading portfolio...</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="portfolio">
+        <h2>Other Projects</h2>
+        <div id="projects-list" class="games-showcase">
+            <div class="game-card">
+                <img src="/Assets/banner.png" class="game-thumbnail" alt="Website Banner" loading="lazy">
+                <div class="game-info">
+                    <h3 class="game-name">My Portfolio</h3>
+                </div>
+            </div>
+            <div class="game-card">
+                <img src="/Assets/Pulsery.png" class="game-thumbnail" alt="Pulsery Logo" loading="lazy">
+                <div class="game-info">
+                    <h3 class="game-name">Pulsery's Discord Bot</h3>
+                </div>
+            </div>
+            <div class="game-card">
+                <img src="/Assets/Pulsery.png" class="game-thumbnail" alt="Pulsery Logo" loading="lazy">
+                <div class="game-info">
+                    <h3 class="game-name">Pulsery's Website</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Services Section -->
+    <section class="section">
+        <h2>What I Offer</h2>
+        <div class="services-grid">
+            <div class="service-card">
+                <h3>Game Development</h3>
+                <p>Complete game systems, mechanics, and optimization for peak performance</p>
+            </div>
+            <div class="service-card">
+                <h3>Anti-Cheat Systems</h3>
+                <p>Advanced security implementations to protect your game's integrity</p>
+            </div>
+            <div class="service-card">
+                <h3>Full-Stack Solutions</h3>
+                <p>Backend servers, APIs, and web interfaces for complete ecosystems</p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Contact Section -->
+    <section class="section">
+        <h2>Let's Work Together</h2>
+        <p style="text-align: center; font-size: 1.125rem; margin-bottom: 2rem; color: var(--text-secondary);">
+            Ready to elevate your project? Get in touch.
+        </p>
+        <div class="contact-methods">
+            <a href="#" class="contact-link" title="Email" onclick="window.open('mailto:contact@bjarnos.dev'); return false;">
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                </svg>
+            </a>
+            <a href="https://discord.com/users/820933303616012288" target="_blank" class="contact-link" title="Discord">
+                <img src="https://img.icons8.com/ios-filled/48/ffffff/discord-logo.png" alt="Discord">
+            </a>
+            <a href="https://www.roblox.com/users/516705355/profile" target="_blank" class="contact-link" title="Roblox">
+                <img src="https://img.icons8.com/ios-filled/48/ffffff/roblox.png" alt="Roblox">
+            </a>
+            <a href="https://www.roblox.com/users/3393761437/profile" target="_blank" class="contact-link" title="Roblox">
+                <img src="/Assets/Studio_w.png" alt="Roblox Studio">
+            </a>
+            <a href="https://github.com/Bjarnos" target="_blank" class="contact-link" title="GitHub">
+                <img src="https://img.icons8.com/ios-glyphs/48/ffffff/github.png" alt="GitHub">
+            </a>
+        </div>
+        <div style="text-align: center; margin-top: 3rem;">
+            <a href="#" onclick="window.open('mailto:contact@bjarnos.dev'); return false;" class="cta-button">Start Your Project</a>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer>
+        <p>© 2025 bjarnos.dev - Crafted with precision</p>
+    </footer>
+    
+    <!-- Popup -->
+    <div id="overlay"></div>
+    <div id="popup">
+        <button id="close-popup">&times;</button>
+        <h2 id="popup-title"></h2>
+        <div id="popup-stats">
+            <div class="popup-stat">
+                <span class="online-indicator"></span>
+                <span id="popup-players">0</span> playing
+            </div>
+            <div class="popup-stat">
+                <img src="https://img.icons8.com/ios-filled/20/94a3b8/visible.png" class="popup-stat-icon" alt="Visits">
+                <span id="popup-visits">0</span> visits
+            </div>
+        </div>
+        <p id="popup-contributions"></p>
+        <a id="popup-play-btn" href="#" target="_blank">
+            Play on Roblox
+            <span class="play-icon"></span>
+        </a>
+    </div>
+    
+    <!-- External JavaScript -->
+    <script src="script.js"></script>
+</body>
+</html>
